@@ -1,0 +1,586 @@
+<style>
+ #nl-badge-frame {
+  display: none !important;
+ }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FALAK AUTOWORLD | Driven By Excellence</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080808;
+  --dark:#111;
+  --white:#f5f5f2;
+  --silver:#aaa;
+  --gold:#b9a27a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:Montserrat,sans-serif;
+  overflow-x:hidden;
+}
+button,a{font-family:inherit}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer}
+.loader{
+ position:fixed;inset:0;background:#050505;z-index:9999;
+ display:flex;align-items:center;justify-content:center;
+ flex-direction:column;transition:opacity .8s;
+}
+.loader h1{font-family:Georgia,serif;letter-spacing:9px;font-size:27px}
+.loader span{font-size:9px;letter-spacing:5px;color:#999;margin-top:12px}
+.loader-line{width:100px;height:1px;background:#444;margin-top:30px;overflow:hidden}
+.loader-line:after{content:"";display:block;width:100%;height:100%;background:white;animation:load 1.5s}
+@keyframes load{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+
+header{
+ position:fixed;top:0;left:0;width:100%;z-index:1000;
+ padding:24px 7%;display:flex;align-items:center;
+ justify-content:space-between;transition:.4s;
+}
+header.scrolled{background:#080808ed;padding:16px 7%;border-bottom:1px solid #222}
+.logo{font-family:Georgia,serif;font-size:21px;letter-spacing:4px;font-weight:bold}
+.logo small{display:block;font-family:Montserrat;font-size:8px;letter-spacing:5px;color:#aaa;text-align:center;margin-top:5px}
+nav{display:flex;align-items:center;gap:30px}
+nav a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#ddd;transition:.3s}
+nav a:hover{color:var(--gold)}
+.book-nav,.btn{
+ background:#f4f4f4;color:#080808;border:1px solid white;
+ padding:15px 25px;font-size:10px;font-weight:700;
+ letter-spacing:2px;text-transform:uppercase;transition:.3s;
+}
+.book-nav:hover,.btn:hover{background:transparent;color:white}
+.menu-toggle{display:none;background:none;color:white;border:0;font-size:25px}
+
+.hero{
+ min-height:100vh;position:relative;display:flex;
+ align-items:center;padding:150px 8% 100px;overflow:hidden;
+ background:linear-gradient(90deg,#050505 5%,#050505b8 45%,#0002 100%),
+ url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=2000') center/cover;
+}
+.hero:after{
+ content:"";position:absolute;inset:0;
+ background:linear-gradient(0deg,#080808 0%,transparent 30%,#0005 100%);
+ pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:680px;animation:enter 1.3s ease}
+@keyframes enter{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:10px;letter-spacing:5px;color:var(--gold);margin-bottom:25px}
+.hero h1{
+ font-family:'Cormorant Garamond',serif;
+ font-size:clamp(55px,8vw,105px);line-height:.95;font-weight:400;
+ text-transform:uppercase;
+}
+.hero h1 span{color:#aaa;font-style:italic}
+.hero p{font-size:12px;line-height:2.1;color:#ccc;max-width:440px;margin:28px 0 35px}
+.hero-buttons{display:flex;gap:15px;flex-wrap:wrap}
+.btn-outline{background:transparent;color:white;border:1px solid #aaa}
+.hero-bottom{
+ position:absolute;bottom:35px;left:8%;right:8%;z-index:3;
+ display:flex;justify-content:space-between;color:#aaa;
+ font-size:9px;letter-spacing:3px;text-transform:uppercase;
+}
+.scroll-line{height:1px;width:65px;background:#888;display:inline-block;vertical-align:middle;margin-right:10px}
+
+section{padding:110px 8%}
+.section-top{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:45px}
+.section-label{font-size:9px;letter-spacing:4px;color:var(--gold);margin-bottom:15px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,65px);font-weight:400}
+.section-description{font-size:11px;color:#999;line-height:2;max-width:350px}
+
+.brands{background:#111;padding:35px 8%;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.brands span{font-family:Georgia,serif;font-size:18px;letter-spacing:2px;color:#999;transition:.3s}
+.brands span:hover{color:white}
+
+.collection{background:#090909}
+.filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px}
+.filters input,.filters select{
+ background:#151515;border:1px solid #333;color:white;
+ padding:14px 15px;font-size:10px;outline:none;min-width:150px;
+}
+.filters input{flex:1}
+.filters select option{background:#111}
+.car-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.car-card{background:#111;position:relative;overflow:hidden;transition:.4s;border:1px solid #202020}
+.car-card:hover{transform:translateY(-7px);border-color:#777}
+.car-image{height:230px;position:relative;overflow:hidden}
+.car-image img{width:100%;height:100%;object-fit:cover;transition:.7s}
+.car-card:hover img{transform:scale(1.08)}
+.status{
+ position:absolute;top:15px;left:15px;background:#eee;color:#111;
+ padding:8px 12px;font-size:8px;letter-spacing:1px;font-weight:bold;
+}
+.car-info{padding:23px}
+.car-brand{font-size:9px;color:var(--gold);letter-spacing:3px}
+.car-info h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin:9px 0}
+.car-info p{font-size:10px;color:#999;line-height:1.8}
+.car-specs{display:flex;justify-content:space-between;border-top:1px solid #292929;border-bottom:1px solid #292929;padding:15px 0;margin:17px 0;font-size:9px;color:#bbb}
+.car-bottom{display:flex;justify-content:space-between;align-items:center}
+.price{font-size:12px;letter-spacing:1px}
+.details-btn{background:none;border:0;color:white;font-size:9px;letter-spacing:2px;border-bottom:1px solid #999;padding-bottom:5px}
+
+.empty{text-align:center;color:#888;padding:40px;display:none}
+
+.featured{
+ min-height:600px;display:flex;align-items:center;
+ background:linear-gradient(90deg,#080808 5%,#080808dd 48%,transparent),
+ url('https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=1800') center/cover;
+}
+.featured-content{max-width:520px}
+.featured h2{font-family:'Cormorant Garamond',serif;font-size:clamp(50px,7vw,85px);font-weight:400;line-height:1}
+.featured p{color:#bbb;font-size:11px;line-height:2.2;margin:25px 0}
+
+.about{background:#111}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-image{height:500px;overflow:hidden}
+.about-image img{width:100%;height:100%;object-fit:cover}
+.about-text p{font-size:11px;color:#aaa;line-height:2.2;margin:25px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:35px}
+.stat strong{font-family:'Cormorant Garamond';font-size:35px;font-weight:400}
+.stat span{display:block;font-size:8px;letter-spacing:2px;color:#999;margin-top:8px}
+
+.booking-info{text-align:center;background:#090909}
+.booking-info p{max-width:600px;margin:20px auto 30px;color:#aaa;font-size:11px;line-height:2.2}
+
+.contact{background:#111}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.contact p{font-size:11px;color:#aaa;line-height:2.5}
+.contact h3{font-family:'Cormorant Garamond';font-size:32px;font-weight:400;margin-bottom:15px}
+
+footer{padding:60px 8% 25px;background:#050505;border-top:1px solid #222}
+.footer-main{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;padding-bottom:40px}
+.footer-main p{font-size:10px;color:#888;line-height:2;margin-top:15px}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{font-size:9px;color:#aaa}
+.copyright{border-top:1px solid #222;padding-top:20px;font-size:9px;color:#666;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+
+/* Booking and detail modal */
+.modal{position:fixed;inset:0;background:#000d;z-index:3000;display:none;align-items:center;justify-content:center;padding:20px;overflow:auto}
+.modal.active{display:flex}
+.modal-box{background:#111;border:1px solid #444;width:100%;max-width:600px;padding:35px;position:relative;max-height:90vh;overflow:auto}
+.close{position:absolute;right:20px;top:15px;background:none;color:white;border:0;font-size:25px}
+.modal h2{font-family:'Cormorant Garamond';font-size:42px;font-weight:400;margin-bottom:10px}
+.modal-sub{font-size:10px;color:#999;margin-bottom:25px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:9px;letter-spacing:1px;color:#aaa}
+.form-group input,.form-group select,.form-group textarea{
+ background:#080808;border:1px solid #333;color:white;padding:13px;font:11px Montserrat;outline:none;width:100%;
+}
+.form-group textarea{height:85px;resize:vertical}
+.form-submit{margin-top:20px;width:100%}
+.confirmation{display:none;padding:20px 0;color:#ddd;line-height:2;font-size:12px}
+.confirmation strong{color:white;font-size:18px}
+.admin-btn{background:none;border:1px solid #444;color:#aaa;padding:9px 12px;font-size:9px}
+#adminBookings{font-size:11px;color:#ccc;line-height:2;margin-top:20px;overflow-wrap:anywhere}
+.booking-item{border-bottom:1px solid #333;padding:12px 0}
+.booking-item button{background:#333;color:white;border:0;padding:6px;margin-top:6px;font-size:9px}
+
+@media(max-width:900px){
+ nav{gap:15px}
+ .car-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+ header{padding:18px 5%}
+ .menu-toggle{display:block}
+ nav{display:none;position:absolute;top:70px;left:0;width:100%;background:#090909;padding:25px;flex-direction:column;align-items:flex-start}
+ nav.open{display:flex}
+ .hero{padding:140px 6% 100px;background-position:60% center}
+ .hero:before{content:"";position:absolute;inset:0;background:#0007}
+ .hero-bottom{left:6%;right:6%;font-size:8px}
+ section{padding:75px 6%}
+ .section-top{display:block}
+ .section-description{margin-top:15px}
+ .car-grid{grid-template-columns:1fr}
+ .car-image{height:240px}
+ .about-grid,.contact-grid{grid-template-columns:1fr}
+ .about-image{height:320px}
+ .brands{justify-content:center}
+ .brands span{font-size:14px}
+ .featured{padding:80px 6%;background-position:60% center}
+ .form-grid{grid-template-columns:1fr}
+ .form-group.full{grid-column:auto}
+ .modal-box{padding:25px 18px}
+ .footer-main{display:block}
+ .footer-links{margin-top:25px}
+}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+ <h1>FALAK</h1>
+ <span>A U T O W O R L D</span>
+ <div class="loader-line"></div>
+</div>
+
+<header id="header">
+ <a href="#home" class="logo">FALAK<small>AUTOWORLD</small></a>
+ <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+ <nav id="nav">
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#collection" onclick="closeMenu()">Collection</a>
+  <a href="#brands" onclick="closeMenu()">Brands</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <button class="book-nav" onclick="openBooking()">Book Now</button>
+ </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+ <div class="hero-content">
+  <div class="eyebrow">THE ART OF AUTOMOTIVE EXCELLENCE</div>
+  <h1>Where Luxury<br>Meets <span>Performance.</span></h1>
+  <p>Discover an exclusive collection of the world's finest automobiles. Experience extraordinary engineering, timeless design and uncompromising luxury.</p>
+  <div class="hero-buttons">
+   <a class="btn" href="#collection">Explore Collection</a>
+   <button class="btn btn-outline" onclick="openBooking()">Book Your Dream Car</button>
+  </div>
+ </div>
+ <div class="hero-bottom">
+  <span><i class="scroll-line"></i> SCROLL TO DISCOVER</span>
+  <span>EST. FALAK AUTOWORLD</span>
+ </div>
+</section>
+
+<div class="brands" id="brands">
+ <span>PORSCHE</span><span>BMW</span><span>AUDI</span>
+ <span>Mercedes-Benz</span><span>LEXUS</span><span>BENTLEY</span>
+ <span>ROLLS-ROYCE</span>
+</div>
+
+<section class="collection" id="collection">
+ <div class="section-top">
+  <div>
+   <div class="section-label">CURATED AUTOMOTIVE COLLECTION</div>
+   <h2 class="section-title">Discover Excellence.</h2>
+  </div>
+  <p class="section-description">Explore a collection of extraordinary vehicles, selected for those who appreciate the finer details.</p>
+ </div>
+
+ <div class="filters">
+  <input type="search" id="search" placeholder="Search your dream car..." oninput="renderCars()">
+  <select id="brandFilter" onchange="renderCars()">
+   <option value="">All Brands</option>
+   <option>Porsche</option><option>Mercedes-Benz</option>
+   <option>BMW</option><option>Audi</option><option>Lexus</option>
+   <option>Lamborghini</option><option>Rolls-Royce</option>
+   <option>Bentley</option><option>Ferrari</option><option>Land Rover</option>
+   <option>Toyota</option><option>McLaren</option>
+  </select>
+  <select id="categoryFilter" onchange="renderCars()">
+   <option value="">All Categories</option>
+   <option>Sports</option><option>Sedan</option><option>SUV</option><option>Ultra Luxury</option>
+  </select>
+  <select id="sortFilter" onchange="renderCars()">
+   <option value="featured">Featured</option>
+   <option value="low">Price: Low to High</option>
+   <option value="high">Price: High to Low</option>
+   <option value="new">Newest First</option>
+  </select>
+ </div>
+ <div class="car-grid" id="carGrid"></div>
+ <div class="empty" id="empty">No vehicles match your search.</div>
+</section>
+
+<section class="featured">
+ <div class="featured-content">
+  <div class="section-label">BEYOND ORDINARY</div>
+  <h2>The Drive<br>Of A Lifetime.</h2>
+  <p>Every vehicle tells a story. Discover the perfect combination of design, innovation and performance with FALAK AUTOWORLD.</p>
+  <a href="#collection" class="btn">Explore Our Collection</a>
+ </div>
+</section>
+
+<section class="about" id="about">
+ <div class="about-grid">
+  <div class="about-image">
+   <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1000" alt="Luxury automobile">
+  </div>
+  <div class="about-text">
+   <div class="section-label">OUR PHILOSOPHY</div>
+   <h2 class="section-title">The Art Of<br>Automotive Excellence.</h2>
+   <p>FALAK AUTOWORLD is designed around a passion for exceptional automobiles. Our collection brings together distinctive styling, remarkable performance and premium automotive craftsmanship.</p>
+   <p>From iconic sports cars to refined luxury SUVs, explore vehicles that make every journey extraordinary.</p>
+   <div class="stats">
+    <div class="stat"><strong>01</strong><span>EXCLUSIVE SERVICE</span></div>
+    <div class="stat"><strong>24/7</strong><span>ENQUIRY ACCESS</span></div>
+    <div class="stat"><strong>100%</strong><span>PASSION FOR CARS</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="booking-info">
+ <div class="section-label">YOUR NEXT JOURNEY STARTS HERE</div>
+ <h2 class="section-title">Reserve Your Experience.</h2>
+ <p>Found the car you've been dreaming of? Request a vehicle reservation, arrange a test drive or schedule a private showroom appointment.</p>
+ <button class="btn" onclick="openBooking()">Request A Booking</button>
+</section>
+
+<section class="contact" id="contact">
+ <div class="contact-grid">
+  <div>
+   <div class="section-label">GET IN TOUCH</div>
+   <h2 class="section-title">Let's Talk Luxury.</h2>
+   <p>Have a question about a vehicle or want to arrange a private viewing? Contact our showroom team.</p>
+  </div>
+  <div>
+   <h3>FALAK AUTOWORLD</h3>
+   <p>Driven By Excellence.</p>
+   <p>Email: your-email@example.com</p>
+   <p>Phone: +92 XXX XXXXXXX</p>
+   <p>Location: Pakistan</p>
+   <p>Showroom hours: Contact us for appointments.</p>
+   <button class="btn" onclick="openBooking()" style="margin-top:15px">Contact / Book Now</button>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="footer-main">
+  <div>
+   <a href="#home" class="logo">FALAK<small>AUTOWORLD</small></a>
+   <p>Driven By Excellence.<br>Where Luxury Meets Performance.</p>
+  </div>
+  <div class="footer-links">
+   <a href="#home">Home</a><a href="#collection">Collection</a>
+   <a href="#about">About</a><a href="#contact">Contact</a>
+   <a href="#" onclick="showAdmin(event)">Admin</a>
+  </div>
+ </div>
+ <div class="copyright">
+  <span>© 2026 FALAK AUTOWORLD. ALL RIGHTS RESERVED.</span>
+  <span>CRAFTED FOR THE EXTRAORDINARY.</span>
+ </div>
+</footer>
+
+<!-- Booking Modal -->
+<div class="modal" id="bookingModal">
+ <div class="modal-box">
+  <button class="close" onclick="closeModal('bookingModal')">×</button>
+  <div id="bookingFormArea">
+   <div class="section-label">PRIVATE BOOKING REQUEST</div>
+   <h2>Reserve Your Experience.</h2>
+   <p class="modal-sub">Complete the details below and our team can contact you.</p>
+   <form id="bookingForm">
+    <div class="form-grid">
+     <div class="form-group">
+      <label>FULL NAME *</label>
+      <input name="name" required placeholder="Your full name">
+     </div>
+     <div class="form-group">
+      <label>PHONE NUMBER *</label>
+      <input name="phone" type="tel" required placeholder="+92">
+     </div>
+     <div class="form-group full">
+      <label>EMAIL ADDRESS *</label>
+      <input name="email" type="email" required placeholder="Your email">
+     </div>
+     <div class="form-group full">
+      <label>SELECT VEHICLE *</label>
+      <select name="vehicle" id="bookingVehicle" required>
+       <option value="">Choose a vehicle</option>
+      </select>
+     </div>
+     <div class="form-group">
+      <label>PREFERRED DATE *</label>
+      <input name="date" type="date" required id="bookingDate">
+     </div>
+     <div class="form-group">
+      <label>PREFERRED TIME *</label>
+      <input name="time" type="time" required>
+     </div>
+     <div class="form-group full">
+      <label>BOOKING TYPE *</label>
+      <select name="type" required>
+       <option value="">Select booking type</option>
+       <option>Vehicle Reservation</option>
+       <option>Test Drive Appointment</option>
+       <option>Showroom Visit</option>
+      </select>
+     </div>
+     <div class="form-group full">
+      <label>ADDITIONAL MESSAGE</label>
+      <textarea name="message" placeholder="Tell us more about your requirements..."></textarea>
+     </div>
+    </div>
+    <button type="submit" class="btn form-submit">Submit Booking Request</button>
+   </form>
+  </div>
+  <div class="confirmation" id="confirmation">
+   <div class="section-label">REQUEST RECEIVED</div>
+   <strong>Your booking request has been saved on this device.</strong>
+   <p id="confirmationText"></p>
+   <button class="btn" onclick="closeModal('bookingModal')" style="margin-top:20px">Close</button>
+  </div>
+ </div>
+</div>
+
+<!-- Admin Modal -->
+<div class="modal" id="adminModal">
+ <div class="modal-box">
+  <button class="close" onclick="closeModal('adminModal')">×</button>
+  <div class="section-label">MANAGEMENT</div>
+  <h2>Booking Requests</h2>
+  <p class="modal-sub">Demo administration view. Stored bookings are available only in this browser.</p>
+  <div id="adminBookings"></div>
+ </div>
+</div>
+
+<script>
+const cars = [
+ {brand:"Porsche",name:"911 Carrera",category:"Sports",year:2025,engine:"3.0L Twin Turbo",hp:388,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:65000000,image:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900",desc:"An iconic sports car combining timeless design with thrilling performance."},
+ {brand:"Porsche",name:"Cayenne",category:"SUV",year:2025,engine:"3.0L V6",hp:348,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:75000000,image:"https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=900",desc:"A premium SUV with distinctive Porsche character."},
+ {brand:"Mercedes-Benz",name:"S-Class",category:"Sedan",year:2025,engine:"3.0L Inline 6",hp:429,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:95000000,image:"https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900",desc:"The benchmark of modern executive luxury."},
+ {brand:"Mercedes-Benz",name:"G-Class",category:"SUV",year:2025,engine:"4.0L V8",hp:416,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:120000000,image:"https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900",desc:"An unmistakable icon of luxury and capability."},
+ {brand:"BMW",name:"7 Series",category:"Sedan",year:2025,engine:"3.0L Inline 6",hp:375,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:85000000,image:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900",desc:"Modern executive luxury with commanding road presence."},
+ {brand:"BMW",name:"X7",category:"SUV",year:2025,engine:"3.0L Inline 6",hp:375,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:90000000,image:"https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900",desc:"Spacious, powerful and sophisticated."},
+ {brand:"Audi",name:"A8",category:"Sedan",year:2025,engine:"3.0L V6",hp:335,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:72000000,image:"https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900",desc:"Elegant engineering and exceptional comfort."},
+ {brand:"Lexus",name:"LX 600",category:"SUV",year:2025,engine:"3.5L Twin Turbo V6",hp:409,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:95000000,image:"https://images.unsplash.com/photo-1518987048-93e29699e79a?w=900",desc:"Japanese craftsmanship with remarkable luxury."},
+ {brand:"Lamborghini",name:"Huracán",category:"Sports",year:2024,engine:"5.2L V10",hp:631,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:180000000,image:"https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=900",desc:"A dramatic supercar created for unforgettable performance."},
+ {brand:"Ferrari",name:"SF90 Stradale",category:"Sports",year:2024,engine:"4.0L V8 Hybrid",hp:986,trans:"Automatic",fuel:"Hybrid",mileage:"0 km",price:250000000,image:"https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=900",desc:"A thrilling expression of Ferrari innovation."},
+ {brand:"Rolls-Royce",name:"Phantom",category:"Ultra Luxury",year:2025,engine:"6.75L V12",hp:563,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:400000000,image:"https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=900",desc:"The ultimate expression of handcrafted luxury."},
+ {brand:"Bentley",name:"Continental GT",category:"Ultra Luxury",year:2025,engine:"4.0L V8 Hybrid",hp:671,trans:"Automatic",fuel:"Hybrid",mileage:"0 km",price:220000000,image:"https://images.unsplash.com/photo-1621135802920-133df287f89c?w=900",desc:"Grand touring excellence with exquisite refinement."},
+ {brand:"Land Rover",name:"Range Rover Vogue",category:"SUV",year:2025,engine:"3.0L Inline 6",hp:395,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:110000000,image:"https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=900",desc:"Contemporary luxury with effortless capability."},
+ {brand:"Toyota",name:"Land Cruiser",category:"SUV",year:2025,engine:"3.5L Twin Turbo V6",hp:409,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:65000000,image:"https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900",desc:"Legendary capability with premium comfort."},
+ {brand:"McLaren",name:"720S",category:"Sports",year:2024,engine:"4.0L Twin Turbo V8",hp:710,trans:"Automatic",fuel:"Petrol",mileage:"0 km",price:190000000,image:"https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?w=900",desc:"Lightweight engineering and extraordinary speed."}
+];
+
+function formatPrice(n){
+ return "PKR "+n.toLocaleString("en-PK");
+}
+function renderCars(){
+ const search=document.getElementById("search").value.toLowerCase();
+ const brand=document.getElementById("brandFilter").value;
+ const category=document.getElementById("categoryFilter").value;
+ const sort=document.getElementById("sortFilter").value;
+ let list=cars.filter(c=>
+  (c.name+" "+c.brand).toLowerCase().includes(search)&&
+  (!brand||c.brand===brand)&&
+  (!category||c.category===category)
+ );
+ if(sort==="low")list.sort((a,b)=>a.price-b.price);
+ if(sort==="high")list.sort((a,b)=>b.price-a.price);
+ if(sort==="new")list.sort((a,b)=>b.year-a.year);
+
+ document.getElementById("empty").style.display=list.length?"none":"block";
+ document.getElementById("carGrid").innerHTML=list.map(c=>`
+ <article class="car-card">
+  <div class="car-image">
+   <img src="${c.image}" alt="${c.brand} ${c.name}" loading="lazy">
+   <span class="status">AVAILABLE FOR ENQUIRY</span>
+  </div>
+  <div class="car-info">
+   <div class="car-brand">${c.brand.toUpperCase()}</div>
+   <h3>${c.name}</h3>
+   <p>${c.desc}</p>
+   <div class="car-specs">
+    <span>${c.year}</span><span>${c.hp} HP</span><span>${c.trans}</span>
+   </div>
+   <div class="car-bottom">
+    <span class="price">${formatPrice(c.price)}</span>
+    <button class="details-btn" onclick="showDetails('${c.brand}','${c.name}')">VIEW DETAILS ↗</button>
+   </div>
+  </div>
+ </article>`).join("");
+}
+function showDetails(brand,name){
+ const car=cars.find(c=>c.brand===brand&&c.name===name);
+ if(!car)return;
+ document.getElementById("bookingVehicle").value=brand+" "+name;
+ openBooking();
+}
+
+function populateVehicles(){
+ document.getElementById("bookingVehicle").innerHTML=
+ '<option value="">Choose a vehicle</option>'+
+ cars.map(c=>`<option>${c.brand} ${c.name}</option>`).join("");
+}
+function openBooking(){
+ document.getElementById("bookingFormArea").style.display="block";
+ document.getElementById("confirmation").style.display="none";
+ document.getElementById("bookingModal").classList.add("active");
+}
+function closeModal(id){document.getElementById(id).classList.remove("active")}
+function toggleMenu(){document.getElementById("nav").classList.toggle("open")}
+function closeMenu(){document.getElementById("nav").classList.remove("open")}
+
+document.getElementById("bookingDate").min=new Date().toISOString().split("T")[0];
+
+document.getElementById("bookingForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ const data=Object.fromEntries(new FormData(this).entries());
+ data.reference="FAW-"+Date.now().toString().slice(-8);
+ data.status="Pending";
+ data.created=new Date().toLocaleString();
+
+ // Demo storage: browser only, not a live server database.
+ const bookings=JSON.parse(localStorage.getItem("falakBookings")||"[]");
+ bookings.push(data);
+ localStorage.setItem("falakBookings",JSON.stringify(bookings));
+
+ document.getElementById("confirmationText").innerHTML=
+ `Reference: <strong>${data.reference}</strong><br>
+ Vehicle: ${data.vehicle}<br>
+ Booking type: ${data.type}<br>
+ Status: Pending confirmation.<br><br>
+ Our showroom team will need to contact you to confirm your appointment.`;
+ document.getElementById("bookingFormArea").style.display="none";
+ document.getElementById("confirmation").style.display="block";
+ this.reset();
+});
+
+function showAdmin(e){
+ e.preventDefault();
+ const bookings=JSON.parse(localStorage.getItem("falakBookings")||"[]");
+ const area=document.getElementById("adminBookings");
+ if(!bookings.length){area.innerHTML="No bookings saved in this browser."; }
+ else{
+  area.innerHTML=bookings.map((b,i)=>`
+   <div class="booking-item">
+    <strong>${b.vehicle}</strong><br>
+    ${b.name} | ${b.phone}<br>
+    ${b.email}<br>
+    ${b.date} ${b.time}<br>
+    ${b.type}<br>
+    Reference: ${b.reference}<br>
+    Status: ${b.status}<br>
+    <button onclick="updateStatus(${i},'Approved')">Approve</button>
+    <button onclick="updateStatus(${i},'Rejected')">Reject</button>
+   </div>`).join("");
+ }
+ document.getElementById("adminModal").classList.add("active");
+}
+function updateStatus(i,status){
+ const bookings=JSON.parse(localStorage.getItem("falakBookings")||"[]");
+ bookings[i].status=status;
+ localStorage.setItem("falakBookings",JSON.stringify(bookings));
+ showAdmin({preventDefault(){}});
+}
+
+window.addEventListener("scroll",()=>{
+ document.getElementById("header").classList.toggle("scrolled",window.scrollY>60);
+});
+window.addEventListener("load",()=>{
+ setTimeout(()=>{
+  const loader=document.getElementById("loader");
+  loader.style.opacity="0";
+  setTimeout(()=>loader.style.display="none",800);
+ },1200);
+ renderCars();
+ populateVehicles();
+});
+</script>
+</body>
+</html>
